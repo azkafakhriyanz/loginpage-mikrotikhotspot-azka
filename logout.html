@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logout - Azka Hotspot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+      background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+      overflow: hidden; color: #fff;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .particles {
+      position: absolute; width: 100%; height: 100%; overflow: hidden; top: 0; left: 0; z-index: 0;
+    }
+    .particles span {
+      position: absolute; display: block; width: 15px; height: 15px;
+      background: rgba(0, 255, 255, 0.4); animation: move 20s linear infinite; border-radius: 50%;
+    }
+    .particles span:nth-child(1) { left: 10%; animation-duration: 12s; }
+    .particles span:nth-child(2) { left: 25%; animation-duration: 18s; }
+    .particles span:nth-child(3) { left: 50%; animation-duration: 20s; }
+    .particles span:nth-child(4) { left: 75%; animation-duration: 15s; }
+    .particles span:nth-child(5) { left: 90%; animation-duration: 25s; }
+    @keyframes move {
+      0% { top: 100%; opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { top: -10%; opacity: 0; transform: scale(0.5); }
+    }
+    .container {
+      position: relative; z-index: 2; background: rgba(0, 0, 0, 0.6);
+      padding: 40px; border-radius: 20px; box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      text-align: center; width: 350px; backdrop-filter: blur(12px);
+    }
+    .logo { width: 80px; margin-bottom: 15px; }
+    h2 { margin-bottom: 10px; font-weight: 600; font-size: 1.6rem; color: cyan; }
+    p { font-size: 0.9rem; margin-bottom: 15px; color: #ccc; }
+    a {
+      color: cyan; text-decoration: none; font-weight: bold; transition: 0.3s;
+    }
+    a:hover { text-shadow: 0 0 10px cyan; }
+    /* Slider container */
+.quote-slider {
+  text-align: center;
+  font-style: italic;
+  color: #b3ffac;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  min-height: 40px;
+  padding: 5px 15px;
+}
+
+/* Animasi fade */
+.fade {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+  </style>
+</head>
+<body>
+  <div class="particles">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="container">
+    <img src="logo.jpg" alt="Azka Logo" class="logo">
+    <h2>Anda telah logout</h2>
+    <p>Terima kasih telah menggunakan Hotspot Azka Mikrotik</p>
+    <p><a href="login.html">Login kembali</a></p>
+  <div class="quote-slider">
+  <p id="quoteText">"Sampai jumpa lagi. Jangan lupa login ke hati yang tepat, bukan cuma ke hotspot!"</p>
+  </div>
+  <script>
+  const quotes = [
+    "Selamat datang kembali. Semoga koneksi ini bukan cuma ke internet, tapi juga ke impian yang kamu kejar.",
+    "Login bukan sekadar akses. Ini langkah pertama menuju cerita yang ingin kamu bagikan.",
+    "Hotspot ini nyala, dan semoga semangatmu juga. Yuk, sambungkan harapan hari ini.",
+    "Koneksi terputus. Tapi kadang, jeda itu perlu—biar kita bisa nyambung lebih dalam nanti.",
+    "Sampai jumpa lagi. Jangan lupa login ke hati yang tepat, bukan cuma ke hotspot!",
+    "Kamu sudah logout, tapi kenangan tetap tersimpan di cache hati kami.",
+    "Status: Connected. Kadang yang kita butuhkan bukan cuma internet, tapi seseorang yang bikin kita merasa nyambung.",
+    "Kadang kita login ke jaringan, kadang kita login ke kenangan.",
+    "Terputus dari jaringan, tapi tetap terhubung dalam ingatan.",
+    "Sinyal boleh mati, tapi semangatmu tetap hidup di sini."
+  ];
+
+  let index = 0;
+  const quoteText = document.getElementById("quoteText");
+
+  function showQuote() {
+    quoteText.classList.remove("fade");
+    void quoteText.offsetWidth; // Trigger reflow
+    quoteText.textContent = quotes[index];
+    quoteText.classList.add("fade");
+  }
+
+  setInterval(() => {
+    index = (index + 1) % quotes.length;
+    showQuote();
+  }, 7000);
+
+  showQuote(); // initial load
+</script>
+</body>
+</html>

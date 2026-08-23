@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Radvert - Azka Hotspot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particles span {
+      position: absolute;
+      display: block;
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      animation: float 20s linear infinite;
+      border-radius: 50%;
+    }
+
+    .particles span:nth-child(1) { left: 10%; animation-duration: 12s; }
+    .particles span:nth-child(2) { left: 25%; animation-duration: 18s; }
+    .particles span:nth-child(3) { left: 50%; animation-duration: 20s; }
+    .particles span:nth-child(4) { left: 75%; animation-duration: 15s; }
+    .particles span:nth-child(5) { left: 90%; animation-duration: 25s; }
+
+    @keyframes float {
+      0% { top: 100%; opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { top: -10%; opacity: 0; transform: scale(0.5); }
+    }
+
+    .welcome {
+      z-index: 2;
+    }
+
+    .welcome h2 {
+      font-size: 2rem;
+      color: #ffdddd;
+      margin-bottom: 25px;
+      transition: 0.3s ease;
+    }
+
+    .welcome h2:hover {
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+      transform: scale(1.05);
+    }
+
+    .quote-box {
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      max-width: 700px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      min-height: 100px;
+      transition: 0.3s ease;
+    }
+
+    .quote-box:hover {
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+      transform: scale(1.02);
+    }
+
+    .quote-box p {
+  font-style: italic;
+  font-size: 1rem;
+  color: #ffeeee;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+    .fade {
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .social-links {
+      z-index: 2;
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    .social-links a {
+      color: cyan;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 10px;
+      transition: 0.3s ease;
+    }
+
+    .social-links a:hover {
+      text-shadow: 0 0 10px cyan;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="particles">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="welcome">
+    <h2>Selamat datang di hotspot Anda</h2>
+  </div>
+
+  <div class="quote-box">
+    <p id="quoteText">"Teknologi menyatukan kita, tapi hanya rasa yang membuat kita benar-benar terhubung. — Fahazka"</p>
+  </div>
+
+  <div class="social-links">
+    <p>Temui Fahazka di:</p>
+    <a href="https://instagram.com/fakhriynnazka" target="_blank">Instagram</a>
+    <a href="https://youtube.com/@Fahazka" target="_blank">YouTube</a>
+  </div>
+  <script>
+  const quotes = [
+    "“The only way to do great work is to love what you do.” — Steve Jobs",
+    "“In the middle of difficulty lies opportunity.” — Albert Einstein",
+    "“Be yourself; everyone else is already taken.” — Oscar Wilde",
+    "“Success is not final, failure is not fatal: It is the courage to continue that counts.” — Winston Churchill",
+    "“Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.” — Buddha",
+    "“Life is really simple, but we insist on making it complicated.” — Confucius",
+    "“It always seems impossible until it’s done.” — Nelson Mandela",
+    "“Don’t count the days, make the days count.” — Muhammad Ali",
+    "“We are what we repeatedly do. Excellence, then, is not an act, but a habit.” — Aristotle",
+    "“Your time is limited, so don’t waste it living someone else’s life.” — Steve Jobs",
+    "“The journey of a thousand miles begins with one step.” — Lao Tzu",
+    "“Courage doesn’t always roar. Sometimes courage is the quiet voice at the end of the day saying ‘I will try again tomorrow.’” — Mary Anne Radmacher",
+    "“A person who never made a mistake never tried anything new.” — Albert Einstein",
+    "“You must be the change you wish to see in the world.” — Mahatma Gandhi",
+    "“Happiness is not something ready made. It comes from your own actions.” — Dalai Lama",
+    "“Teknologi menyatukan kita, tapi hanya rasa yang membuat kita benar-benar terhubung.” — Fahazka"
+  ];
+
+  let index = 0;
+  const quoteText = document.getElementById("quoteText");
+
+  function showQuote() {
+    quoteText.style.opacity = 0;
+    quoteText.style.transform = "translateY(10px)";
+    setTimeout(() => {
+      quoteText.textContent = quotes[index];
+      quoteText.style.opacity = 1;
+      quoteText.style.transform = "translateY(0)";
+    }, 300);
+  }
+
+  setInterval(() => {
+    index = (index + 1) % quotes.length;
+    showQuote();
+  }, 8000);
+
+  showQuote();
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Status Koneksi - Azka Hotspot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+      color: #fff;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    .particles span {
+      position: absolute;
+      display: block;
+      width: 15px;
+      height: 15px;
+      background: rgba(0, 255, 255, 0.4);
+      animation: move 20s linear infinite;
+      border-radius: 50%;
+    }
+    .particles span:nth-child(1) { left: 10%; animation-duration: 12s; }
+    .particles span:nth-child(2) { left: 25%; animation-duration: 18s; }
+    .particles span:nth-child(3) { left: 50%; animation-duration: 20s; }
+    .particles span:nth-child(4) { left: 75%; animation-duration: 15s; }
+    .particles span:nth-child(5) { left: 90%; animation-duration: 25s; }
+    @keyframes move {
+      0% { top: 100%; opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { top: -10%; opacity: 0; transform: scale(0.5); }
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      width: 350px;
+      backdrop-filter: blur(12px);
+    }
+    .logo {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+    h2 {
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: cyan;
+    }
+    p {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+    .countdown {
+      font-size: 1rem;
+      font-weight: bold;
+      color: cyan;
+      margin-top: 10px;
+    }
+    a.logout {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, cyan, #007bff);
+      color: #000;
+      font-weight: bold;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    a.logout:hover {
+      box-shadow: 0 0 20px cyan;
+    }
+    .quote-slider {
+  text-align: center;
+  font-style: italic;
+  color: #ffdddd;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  min-height: 40px;
+  animation: fadeIn 1s ease;
+}
+.fade {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+  </style>
+</head>
+<body>
+  <div class="particles">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="container">
+    <img src="logo.jpg" alt="Azka Logo" class="logo">
+    <h2>Status Koneksi</h2>
+    <p>IP Address: $(ip)</p>
+    <p>MAC Address: $(mac)</p>
+    <p>Durasi Aktif: $(uptime)</p>
+    <p>Data Digunakan: $(bytes-out-nice)</p>
+    <div class="countdown" id="countdown">Sisa waktu: menghitung...</div>
+    <a class="logout" href="$(link-logout)">Logout</a>
+    <div class="quote-slider">
+  <p id="quoteText">"Kadang yang kita butuhkan bukan cuma internet, tapi seseorang yang bikin kita merasa nyambung."</p>
+</div>
+  </div>
+
+  <script>
+    // Ambil uptime dalam detik dari Mikrotik
+    let seconds = parseInt("$(uptime-secs)");
+    const countdown = document.getElementById("countdown");
+
+    function formatTime(s) {
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      return `${h} jam ${m} menit ${sec} detik`;
+    }
+
+    function updateCountdown() {
+      if (seconds > 0) {
+        countdown.textContent = "Sisa waktu: " + formatTime(seconds);
+        seconds--;
+      } else {
+        countdown.textContent = "Sesi telah berakhir.";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+     // Slider kutipan
+    const quotes = [
+    "Koneksi aktif. Tapi yang paling penting, jangan lupa tetap terhubung dengan harapan.",
+    "Hotspot nyala, sinyal stabil. Semoga hatimu juga nggak lagi buffering.",
+    "Koneksi terputus. Tapi kadang, jeda itu perlu biar kita bisa nyambung lebih dalam nanti.",
+    "Sinyal hilang bukan akhir segalanya. Kadang hati juga butuh waktu untuk reconnect.",
+    "Status: Connected. Kadang yang kita butuhkan bukan cuma internet, tapi seseorang yang bikin kita merasa nyambung."
+  ];
+
+  let index = 0;
+  const quoteText = document.getElementById("quoteText");
+
+  function showQuote() {
+    quoteText.classList.remove("fade");
+    void quoteText.offsetWidth; // Trigger reflow
+    quoteText.textContent = quotes[index];
+    quoteText.classList.add("fade");
+  }
+
+  setInterval(() => {
+    index = (index + 1) % quotes.length;
+    showQuote();
+  }, 7000);
+
+  showQuote(); // initial
+
+  </script>
+</body>
+</html>

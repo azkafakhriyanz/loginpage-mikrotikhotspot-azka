@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Berhasil - Azka Hotspot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+      color: #fff;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    .particles span {
+      position: absolute;
+      display: block;
+      width: 15px;
+      height: 15px;
+      background: rgba(0, 255, 255, 0.4);
+      animation: move 20s linear infinite;
+      border-radius: 50%;
+    }
+    .particles span:nth-child(1) { left: 10%; animation-duration: 12s; }
+    .particles span:nth-child(2) { left: 25%; animation-duration: 18s; }
+    .particles span:nth-child(3) { left: 50%; animation-duration: 20s; }
+    .particles span:nth-child(4) { left: 75%; animation-duration: 15s; }
+    .particles span:nth-child(5) { left: 90%; animation-duration: 25s; }
+    @keyframes move {
+      0% { top: 100%; opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { top: -10%; opacity: 0; transform: scale(0.5); }
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      width: 350px;
+      backdrop-filter: blur(12px);
+    }
+    .logo {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+    h2 {
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: cyan;
+    }
+    p {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+    a.logout {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, cyan, #007bff);
+      color: #000;
+      font-weight: bold;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    a.logout:hover {
+      box-shadow: 0 0 20px cyan;
+    }
+    .footer {
+      margin-top: 25px;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="container">
+    <img src="logo.jpg" alt="Azka Logo" class="logo">
+    <h2>Login Berhasil!</h2>
+    <p>Selamat datang di jaringan Azka Hotspot</p>
+    <p>Anda sekarang terhubung ke internet</p>
+    <a class="logout" href="$(link-logout)">Logout</a>
+    <div class="footer">Powered by MikroTik RouterOS | Azka &copy; 2025</div>
+  </div>
+</body>
+</html>
