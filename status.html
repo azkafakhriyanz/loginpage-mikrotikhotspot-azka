@@ -1,193 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Status Koneksi - Azka Hotspot</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
     body {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      overflow: hidden;
-      color: #fff;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: #030712; color: #fff; padding: 20px; overflow-x: hidden; position: relative;
     }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    #bgCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .glow-1 { position: absolute; width: 300px; height: 300px; background: rgba(0, 242, 254, 0.2); filter: blur(120px); border-radius: 50%; top: 10%; left: 10%; }
+    .card-wrapper {
+      position: relative; z-index: 2; width: 100%; max-width: 400px; border-radius: 28px; padding: 2px;
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.6), rgba(124, 58, 237, 0.2));
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.25);
     }
-    .particles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      top: 0;
-      left: 0;
-      z-index: 0;
+    .card { background: rgba(10, 15, 30, 0.85); padding: 35px 28px; border-radius: 26px; text-align: center; backdrop-filter: blur(20px); }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 20px; color: #34d399; font-size: 0.8rem; font-weight: 700; margin-bottom: 16px;
     }
-    .particles span {
-      position: absolute;
-      display: block;
-      width: 15px;
-      height: 15px;
-      background: rgba(0, 255, 255, 0.4);
-      animation: move 20s linear infinite;
-      border-radius: 50%;
+    .status-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 10px #34d399; }
+    h2 { font-size: 1.4rem; font-weight: 800; color: #00f2fe; margin-bottom: 20px; }
+    .info-list { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 18px; border-radius: 16px; margin-bottom: 22px; }
+    .info-item { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .info-item:last-child { border-bottom: none; }
+    .info-label { color: #94a3b8; }
+    .info-value { color: #f8fafc; font-weight: 600; }
+    a.logout-btn {
+      display: block; width: 100%; padding: 14px; background: rgba(239, 68, 68, 0.15);
+      color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 14px;
+      text-decoration: none; font-weight: 700; transition: all 0.3s ease;
     }
-    .particles span:nth-child(1) { left: 10%; animation-duration: 12s; }
-    .particles span:nth-child(2) { left: 25%; animation-duration: 18s; }
-    .particles span:nth-child(3) { left: 50%; animation-duration: 20s; }
-    .particles span:nth-child(4) { left: 75%; animation-duration: 15s; }
-    .particles span:nth-child(5) { left: 90%; animation-duration: 25s; }
-    @keyframes move {
-      0% { top: 100%; opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.2); }
-      100% { top: -10%; opacity: 0; transform: scale(0.5); }
-    }
-    .container {
-      position: relative;
-      z-index: 2;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-      text-align: center;
-      width: 350px;
-      backdrop-filter: blur(12px);
-    }
-    .logo {
-      width: 80px;
-      margin-bottom: 15px;
-    }
-    h2 {
-      margin-bottom: 10px;
-      font-weight: 600;
-      font-size: 1.6rem;
-      color: cyan;
-    }
-    p {
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-      color: #ccc;
-    }
-    .countdown {
-      font-size: 1rem;
-      font-weight: bold;
-      color: cyan;
-      margin-top: 10px;
-    }
-    a.logout {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: linear-gradient(90deg, cyan, #007bff);
-      color: #000;
-      font-weight: bold;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-    a.logout:hover {
-      box-shadow: 0 0 20px cyan;
-    }
-    .quote-slider {
-  text-align: center;
-  font-style: italic;
-  color: #ffdddd;
-  font-size: 0.85rem;
-  margin-top: 10px;
-  min-height: 40px;
-  animation: fadeIn 1s ease;
-}
-.fade {
-  animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    a.logout-btn:hover { background: rgba(239, 68, 68, 0.25); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3); }
   </style>
 </head>
 <body>
-  <div class="particles">
-    <span></span><span></span><span></span><span></span><span></span>
+  <canvas id="bgCanvas"></canvas>
+  <div class="glow-1"></div>
+  <div class="card-wrapper">
+    <div class="card">
+      <div class="status-badge"><span class="status-dot"></span> CONNECTED</div>
+      <h2>Status Koneksi</h2>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">IP Address</span><span class="info-value">$(ip)</span></div>
+        <div class="info-item"><span class="info-label">MAC Address</span><span class="info-value">$(mac)</span></div>
+        <div class="info-item"><span class="info-label">Durasi Aktif</span><span class="info-value">$(uptime)</span></div>
+        <div class="info-item"><span class="info-label">Penggunaan Data</span><span class="info-value">$(bytes-out-nice)</span></div>
+      </div>
+      <a href="$(link-logout)" class="logout-btn">DISCONNECT / LOGOUT</a>
+    </div>
   </div>
-  <div class="container">
-    <img src="logo.jpg" alt="Azka Logo" class="logo">
-    <h2>Status Koneksi</h2>
-    <p>IP Address: $(ip)</p>
-    <p>MAC Address: $(mac)</p>
-    <p>Durasi Aktif: $(uptime)</p>
-    <p>Data Digunakan: $(bytes-out-nice)</p>
-    <div class="countdown" id="countdown">Sisa waktu: menghitung...</div>
-    <a class="logout" href="$(link-logout)">Logout</a>
-    <div class="quote-slider">
-  <p id="quoteText">"Kadang yang kita butuhkan bukan cuma internet, tapi seseorang yang bikin kita merasa nyambung."</p>
-</div>
-  </div>
-
   <script>
-    // Ambil uptime dalam detik dari Mikrotik
-    let seconds = parseInt("$(uptime-secs)");
-    const countdown = document.getElementById("countdown");
-
-    function formatTime(s) {
-      const h = Math.floor(s / 3600);
-      const m = Math.floor((s % 3600) / 60);
-      const sec = s % 60;
-      return `${h} jam ${m} menit ${sec} detik`;
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    let particles = [];
+    for(let i=0; i<35; i++){ particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx: (Math.random()-0.5)*0.6, vy: (Math.random()-0.5)*0.6 }); }
+    function animate(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0||p.x>canvas.width) p.vx*=-1;
+        if(p.y<0||p.y>canvas.height) p.vy*=-1;
+        ctx.fillStyle = "rgba(0, 242, 254, 0.5)"; ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+      });
+      requestAnimationFrame(animate);
     }
-
-    function updateCountdown() {
-      if (seconds > 0) {
-        countdown.textContent = "Sisa waktu: " + formatTime(seconds);
-        seconds--;
-      } else {
-        countdown.textContent = "Sesi telah berakhir.";
-      }
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-     // Slider kutipan
-    const quotes = [
-    "Koneksi aktif. Tapi yang paling penting, jangan lupa tetap terhubung dengan harapan.",
-    "Hotspot nyala, sinyal stabil. Semoga hatimu juga nggak lagi buffering.",
-    "Koneksi terputus. Tapi kadang, jeda itu perlu biar kita bisa nyambung lebih dalam nanti.",
-    "Sinyal hilang bukan akhir segalanya. Kadang hati juga butuh waktu untuk reconnect.",
-    "Status: Connected. Kadang yang kita butuhkan bukan cuma internet, tapi seseorang yang bikin kita merasa nyambung."
-  ];
-
-  let index = 0;
-  const quoteText = document.getElementById("quoteText");
-
-  function showQuote() {
-    quoteText.classList.remove("fade");
-    void quoteText.offsetWidth; // Trigger reflow
-    quoteText.textContent = quotes[index];
-    quoteText.classList.add("fade");
-  }
-
-  setInterval(() => {
-    index = (index + 1) % quotes.length;
-    showQuote();
-  }, 7000);
-
-  showQuote(); // initial
-
+    animate();
   </script>
 </body>
 </html>
